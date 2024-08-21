@@ -161,6 +161,42 @@ button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
     transition: background-color 0.3s; /* Define uma transição suave para a cor de fundo da estrela. */
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.animated-button {
+    background: linear-gradient(90deg, #ff6a00, #ee0979); /* Degradê de cores */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 10px;
+    transition: transform 0.3s;
+    animation: pulse 1.5s infinite; /* Animação de pulsar */
+}
+
+.animated-button:hover {
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 footer { /* Seleciona o elemento <footer>. */
     margin-top: 20px; /* Adiciona um espaço acima do rodapé. */
     text-align: center; /* Centraliza o texto do rodapé. */

@@ -1,103 +1,109 @@
-<!DOCTYPE html> <!-- Declara que este documento é um arquivo HTML5. -->
-<html lang="pt-BR"> <!-- Início do documento HTML, especificando que o idioma é português do Brasil. -->
-<head> <!-- Início da seção de cabeçalho do documento, que contém informações sobre o documento. -->
-    <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8, suportando a maioria dos caracteres internacionais. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para que o layout seja responsivo em dispositivos móveis. -->
-    <title>Meta Diária Project</title> <!-- Define o título do documento, que aparece na aba do navegador. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Importa a biblioteca de ícones Font Awesome para usar ícones no site. -->
-    <link rel="stylesheet" href="css/styles.css"> <!-- Importa um arquivo CSS externo para estilizar o documento. -->
-</head> <!-- Fim da seção de cabeçalho. -->
-<body> <!-- Início da seção do corpo do documento, que contém o conteúdo visível da página. -->
-    <div class="container"> <!-- Cria um contêiner que agrupa todos os elementos dentro dele. -->
-        <h1>Meta Diária Project</h1> <!-- Título principal do projeto, exibido em destaque. -->
-        <div class="inputs"> <!-- Agrupamento de campos de entrada para as metas diárias. -->
-            <div class="input-group"> <!-- Agrupamento para um conjunto de rótulo, valor exibido e campo de entrada. -->
-                <label for="diasMes">Dias do Mês:</label> <!-- Rótulo associado ao campo de entrada, indicando o que deve ser preenchido. -->
-                <span class="display-value" id="display-diasMes">30</span> <!-- Exibe o valor atual para "Dias do Mês". -->
-                <input type="number" id="diasMes" placeholder="Ex: 30" style="display: none;"> <!-- Campo de entrada oculto para inserir o valor de "Dias do Mês". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('diasMes')"></i> <!-- Ícone de lápis que, ao ser clicado, chama a função toggleEdit para editar o valor. -->
-            </div> <!-- Fim do agrupamento de entradas para "Dias do Mês". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "Dias Trabalhados". -->
-                <label for="diasTrabalhados">Dias Trabalhados:</label> <!-- Rótulo para "Dias Trabalhados". -->
-                <span class="display-value" id="display-diasTrabalhados">15</span> <!-- Exibe o valor atual para "Dias Trabalhados". -->
-                <input type="number" id="diasTrabalhados" placeholder="Ex: 15" style="display: none;"> <!-- Campo de entrada oculto para "Dias Trabalhados". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('diasTrabalhados')"></i> <!-- Ícone de lápis para editar "Dias Trabalhados". -->
-            </div> <!-- Fim do agrupamento de entradas para "Dias Trabalhados". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "1ª Meta". -->
-                <label for="meta1">1ª Meta:</label> <!-- Rótulo para "1ª Meta". -->
-                <span class="display-value" id="display-meta1">1000</span> <!-- Exibe o valor atual para "1ª Meta". -->
-                <input type="number" id="meta1" placeholder="Ex: 1000" style="display: none;"> <!-- Campo de entrada oculto para "1ª Meta". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta1')"></i> <!-- Ícone de lápis para editar "1ª Meta". -->
-            </div> <!-- Fim do agrupamento de entradas para "1ª Meta". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "2ª Meta". -->
-                <label for="meta2">2ª Meta:</label> <!-- Rótulo para "2ª Meta". -->
-                <span class="display-value" id="display-meta2">2000</span> <!-- Exibe o valor atual para "2ª Meta". -->
-                <input type="number" id="meta2" placeholder="Ex: 2000" style="display: none;"> <!-- Campo de entrada oculto para "2ª Meta". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta2')"></i> <!-- Ícone de lápis para editar "2ª Meta". -->
-            </div> <!-- Fim do agrupamento de entradas para "2ª Meta". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "3ª Meta". -->
-                <label for="meta3">3ª Meta:</label> <!-- Rótulo para "3ª Meta". -->
-                <span class="display-value" id="display-meta3">3000</span> <!-- Exibe o valor atual para "3ª Meta". -->
-                <input type="number" id="meta3" placeholder="Ex: 3000" style="display: none;"> <!-- Campo de entrada oculto para "3ª Meta". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta3')"></i> <!-- Ícone de lápis para editar "3ª Meta". -->
-            </div> <!-- Fim do agrupamento de entradas para "3ª Meta". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "4ª Meta". -->
-                <label for="meta4">4ª Meta:</label> <!-- Rótulo para "4ª Meta". -->
-                <span class="display-value" id="display-meta4">4000</span> <!-- Exibe o valor atual para "4ª Meta". -->
-                <input type="number" id="meta4" placeholder="Ex: 4000" style="display: none;"> <!-- Campo de entrada oculto para "4ª Meta". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta4')"></i> <!-- Ícone de lápis para editar "4ª Meta". -->
-            </div> <!-- Fim do agrupamento de entradas para "4ª Meta". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "5ª Meta". -->
-                <label for="meta5">5ª Meta:</label> <!-- Rótulo para "5ª Meta". -->
-                <span class="display-value" id="display-meta5">5000</span> <!-- Exibe o valor atual para "5ª Meta". -->
-                <input type="number" id="meta5" placeholder="Ex: 5000" style="display: none;"> <!-- Campo de entrada oculto para "5ª Meta". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta5')"></i> <!-- Ícone de lápis para editar "5ª Meta". -->
-            </div> <!-- Fim do agrupamento de entradas para "5ª Meta". -->
-            <div class="input-group"> <!-- Agrupamento para o campo de entrada "Valor Realizado". -->
-                <label for="realizado">Valor Realizado:</label> <!-- Rótulo para "Valor Realizado". -->
-                <span class="display-value" id="display-realizado">1500</span> <!-- Exibe o valor atual para "Valor Realizado". -->
-                <input type="number" id="realizado" placeholder="Ex: 1500" style="display: none;"> <!-- Campo de entrada oculto para "Valor Realizado". -->
-                <i class="fas fa-pencil-alt" onclick="toggleEdit('realizado')"></i> <!-- Ícone de lápis para editar "Valor Realizado". -->
-            </div> <!-- Fim do agrupamento de entradas para "Valor Realizado". -->
-            <button onclick="calcularMeta()">Calcular</button> <!-- Botão que, ao ser clicado, chama a função calcularMeta para calcular as metas. -->
-        </div> <!-- Fim do agrupamento de campos de entrada. -->
-        <div class="results" id="resultados"> <!-- Seção para exibir os resultados dos cálculos. -->
-            <p>Meta Diária: <span id="meta-diaria">0</span></p> <!-- Exibe o texto "Meta Diária" com um valor que será atualizado dinamicamente. -->
-            <p>Tendência: <span id="tendencia">0%</span></p> <!-- Exibe o texto "Tendência" com um valor que será atualizado dinamicamente. -->
-            <p>Dias a Trabalhar: <span id="dias-a-trabalhar">0</span></p> <!-- Exibe o texto "Dias a Trabalhar" com um valor que será atualizado dinamicamente. -->
-        </div> <!-- Fim da seção de resultados. -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Diária Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Meta Diária Project</h1>
+        <div class="inputs">
+            <div class="input-group">
+                <label for="diasMes">Dias do Mês:</label>
+                <span class="display-value" id="display-diasMes">30</span>
+                <input type="number" id="diasMes" placeholder="Ex: 30" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('diasMes')"></i>
+            </div>
+            <div class="input-group">
+                <label for="diasTrabalhados">Dias Trabalhados:</label>
+                <span class="display-value" id="display-diasTrabalhados">15</span>
+                <input type="number" id="diasTrabalhados" placeholder="Ex: 15" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('diasTrabalhados')"></i>
+            </div>
+            <div class="input-group">
+                <label for="meta1">1ª Meta:</label>
+                <span class="display-value" id="display-meta1">1000</span>
+                <input type="number" id="meta1" placeholder="Ex: 1000" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta1')"></i>
+            </div>
+            <div class="input-group">
+                <label for="meta2">2ª Meta:</label>
+                <span class="display-value" id="display-meta2">2000</span>
+                <input type="number" id="meta2" placeholder="Ex: 2000" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta2')"></i>
+            </div>
+            <div class="input-group">
+                <label for="meta3">3ª Meta:</label>
+                <span class="display-value" id="display-meta3">3000</span>
+                <input type="number" id="meta3" placeholder="Ex: 3000" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta3')"></i>
+            </div>
+            <div class="input-group">
+                <label for="meta4">4ª Meta:</label>
+                <span class="display-value" id="display-meta4">4000</span>
+                <input type="number" id="meta4" placeholder="Ex: 4000" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta4')"></i>
+            </div>
+            <div class="input-group">
+                <label for="meta5">5ª Meta:</label>
+                <span class="display-value" id="display-meta5">5000</span>
+                <input type="number" id="meta5" placeholder="Ex: 5000" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('meta5')"></i>
+            </div>
+            <div class="input-group">
+                <label for="realizado">Valor Realizado:</label>
+                <span class="display-value" id="display-realizado">1500</span>
+                <input type="number" id="realizado" placeholder="Ex: 1500" style="display: none;">
+                <i class="fas fa-pencil-alt" onclick="toggleEdit('realizado')"></i>
+            </div>
+            <button onclick="calcularMeta()">Calcular</button>
+        </div>
+        <div class="results" id="resultados">
+            <p>Meta Diária: <span id="meta-diaria">0</span></p>
+            <p>Tendência: <span id="tendencia">0%</span></p>
+            <p>Dias a Trabalhar: <span id="dias-a-trabalhar">0</span></p>
+        </div>
         
-        <div class="metas" id="metas"> <!-- Seção para exibir as metas alcançadas. -->
-            <div class="meta" id="meta1-achieved"> <!-- Div para a primeira meta alcançada. -->
-                <div class="estrela" id="estrela1"></div> <!-- Elemento visual representando a conquista da primeira meta. -->
-                <p>1ª meta alcançada</p> <!-- Texto indicando que a primeira meta foi alcançada. -->
-            </div> <!-- Fim da div para a primeira meta. -->
-            <div class="meta" id="meta2-achieved"> <!-- Div para a segunda meta alcançada. -->
-                <div class="estrela" id="estrela2"></div> <!-- Elemento visual representando a conquista da segunda meta. -->
-                <p>2ª meta alcançada</p> <!-- Texto indicando que a segunda meta foi alcançada. -->
-            </div> <!-- Fim da div para a segunda meta. -->
-            <div class="meta" id="meta3-achieved"> <!-- Div para a terceira meta alcançada. -->
-                <div class="estrela" id="estrela3"></div> <!-- Elemento visual representando a conquista da terceira meta. -->
-                <p>3ª meta alcançada</p> <!-- Texto indicando que a terceira meta foi alcançada. -->
-            </div> <!-- Fim da div para a terceira meta. -->
-            <div class="meta" id="meta4-achieved"> <!-- Div para a quarta meta alcançada. -->
-                <div class="estrela" id="estrela4"></div> <!-- Elemento visual representando a conquista da quarta meta. -->
-                <p>4ª meta alcançada</p> <!-- Texto indicando que a quarta meta foi alcançada. -->
-            </div> <!-- Fim da div para a quarta meta. -->
-            <div class="meta" id="meta5-achieved"> <!-- Div para a quinta meta alcançada. -->
-                <div class="estrela" id="estrela5"></div> <!-- Elemento visual representando a conquista da quinta meta. -->
-                <p>5ª meta alcançada</p> <!-- Texto indicando que a quinta meta foi alcançada. -->
-            </div> <!-- Fim da div para a quinta meta. -->
-        </div> <!-- Fim da seção de metas. -->
-    </div> <!-- Fim do contêiner principal. -->
-    <footer> <!-- Início do rodapé da página. -->
-        <p>Diego Nascimento - Analista e Desenvolvedor de Sistemas</p> <!-- Informações sobre o autor do projeto. -->
-        <div class="footer-content"> <!-- Agrupamento para o conteúdo do rodapé. -->
-            <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a> <!-- Link para o perfil do LinkedIn do autor. -->
-            <span>|</span> <!-- Separador visual entre os links. -->
-            <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a> <!-- Link para o perfil do GitHub do autor. -->
-        </div> <!-- Fim do agrupamento do conteúdo do rodapé. -->
-    </footer> <!-- Fim do rodapé da página. -->
-    <script src="js/script.js"></script> <!-- Importa um arquivo JavaScript externo para adicionar interatividade ao projeto. -->
-</body> <!-- Fim da seção do corpo do documento. -->
-</html> <!-- Fim do documento HTML. -->
+        <div class="metas" id="metas">
+            <div class="meta" id="meta1-achieved">
+                <div class="estrela" id="estrela1"></div>
+                <p>1ª meta alcançada</p>
+            </div>
+            <div class="meta" id="meta2-achieved">
+                <div class="estrela" id="estrela2"></div>
+                <p>2ª meta alcançada</p>
+            </div>
+            <div class="meta" id="meta3-achieved">
+                <div class="estrela" id="estrela3"></div>
+                <p>3ª meta alcançada</p>
+            </div>
+            <div class="meta" id="meta4-achieved">
+                <div class="estrela" id="estrela4"></div>
+                <p>4ª meta alcançada</p>
+            </div>
+            <div class="meta" id="meta5-achieved">
+                <div class="estrela" id="estrela5"></div>
+                <p>5ª meta alcançada</p>
+            </div>
+        </div>
+        
+        <!-- Botões adicionados -->
+        <div class="button-container">
+            <a href="https://dvalenascimento.github.io/calcPro_Plus.Project/" class="animated-button">CalcPro Plus</a>
+            <a href="https://dvalenascimento.github.io/vendaVision365.project/" class="animated-button">VendaVision</a>
+        </div>
+    </div>
+    <footer>
+        <p>Diego Nascimento - Analista e Desenvolvedor de Sistemas</p>
+        <div class="footer-content">
+            <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a>
+            <span>|</span>
+            <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
