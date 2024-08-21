@@ -1,0 +1,187 @@
+/* Reset básico */ 
+* { /* Seleciona todos os elementos do documento. */
+    margin: 0; /* Remove a margem padrão de todos os elementos. */
+    padding: 0; /* Remove o preenchimento padrão de todos os elementos. */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura e altura dos elementos. */
+}
+
+body { /* Seleciona o elemento <body> da página. */
+    font-family: 'Arial', sans-serif; /* Define a fonte como Arial, com uma fonte genérica como fallback. */
+    background-color: #121212; /* Define um fundo escuro para o body. */
+    color: #e0e0e0; /* Define a cor do texto como clara. */
+}
+
+.container { /* Seleciona a classe 'container'. */
+    max-width: 100%; /* Define a largura máxima como 100%. */
+    margin: 0 auto; /* Centraliza o conteúdo horizontalmente. */
+    padding: 20px; /* Adiciona um preenchimento interno de 20px. */
+    background: #1e1e1e; /* Define um fundo escuro para o contêiner. */
+    border-radius: 10px; /* Adiciona bordas arredondadas ao contêiner. */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra ao contêiner. */
+    overflow: hidden; /* Impede que o conteúdo vaze para fora do contêiner. */
+}
+
+h1 { /* Seleciona todos os elementos <h1>. */
+    text-align: center; /* Centraliza o texto do título. */
+    margin-bottom: 20px; /* Adiciona um espaço inferior de 20px. */
+    color: #bb86fc; /* Define a cor do título como roxa. */
+    font-size: 1.5em; /* Define o tamanho da fonte do título como 1.5 vezes o tamanho padrão. */
+    font-weight: 600; /* Define a espessura da fonte do título. */
+    animation: fadeIn 1s ease-in-out; /* Adiciona uma animação de fade-in ao título. */
+}
+
+@keyframes fadeIn { /* Define a animação chamada fadeIn. */
+    from { /* Define o estado inicial da animação. */
+        opacity: 0; /* Inicia com a opacidade 0 (invisível). */
+        transform: translateY(-20px); /* Move o elemento 20px para cima. */
+    }
+    to { /* Define o estado final da animação. */
+        opacity: 1; /* Termina com a opacidade 1 (visível). */
+        transform: translateY(0); /* Retorna o elemento à sua posição original. */
+    }
+}
+
+.inputs { /* Seleciona a classe 'inputs'. */
+    display: flex; /* Define um contêiner flexível. */
+    flex-direction: column; /* Alinha os itens em coluna. */
+    gap: 10px; /* Adiciona um espaço de 10px entre os itens. */
+}
+
+.input-group { /* Seleciona a classe 'input-group'. */
+    display: flex; /* Define um contêiner flexível para os elementos dentro do grupo. */
+    align-items: center; /* Alinha os itens verticalmente ao centro. */
+    position: relative; /* Permite o uso de posicionamento absoluto em elementos filhos. */
+    border-radius: 5px; /* Adiciona bordas arredondadas ao grupo de entrada. */
+    overflow: hidden; /* Garante que o conteúdo não vaze. */
+}
+
+label { /* Seleciona todos os elementos <label>. */
+    flex: 1; /* Permite que o rótulo ocupe todo o espaço disponível. */
+    font-size: 0.8em; /* Reduz o tamanho da fonte do rótulo. */
+}
+
+input[type="number"] { /* Seleciona campos de entrada do tipo número. */
+    flex: 1; /* Permite que o campo de entrada ocupe todo o espaço disponível. */
+    padding: 8px 10px; /* Adiciona preenchimento interno. */
+    border: 1px solid #444; /* Define uma borda escura ao redor do campo. */
+    border-radius: 5px; /* Adiciona bordas arredondadas ao campo. */
+    font-size: 0.8em; /* Reduz o tamanho da fonte do campo. */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Define transições suaves para a cor da borda e sombra. */
+    display: none; /* Oculta o campo de entrada por padrão. */
+    background-color: #1e1e1e; /* Define um fundo escuro para o campo. */
+    color: #e0e0e0; /* Define a cor do texto do campo como clara. */
+}
+
+input[type="number"]:focus { /* Aplica estilos quando o campo de entrada está em foco. */
+    border-color: #bb86fc; /* Altera a cor da borda para roxa quando em foco. */
+    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5); /* Adiciona uma sombra ao campo em foco. */
+    outline: none; /* Remove a borda padrão de foco. */
+}
+
+.display-value { /* Seleciona a classe 'display-value'. */
+    flex: 1; /* Permite que o valor exibido ocupe todo o espaço disponível. */
+    padding: 8px 10px; /* Adiciona preenchimento interno. */
+    border: 1px solid transparent; /* Borda transparente. */
+    border-radius: 5px; /* Adiciona bordas arredondadas ao valor exibido. */
+    background-color: #333; /* Define um fundo escuro para o valor exibido. */
+    color: #e0e0e0; /* Define a cor do texto do valor exibido como clara. */
+    font-size: 0.8em; /* Reduz o tamanho da fonte do valor exibido. */
+    cursor: default; /* Define o cursor como padrão ao passar sobre o valor exibido. */
+}
+
+i { /* Seleciona todos os elementos <i> (ícones). */
+    cursor: pointer; /* Define o cursor como ponteiro ao passar sobre os ícones. */
+    color: #bb86fc; /* Define a cor dos ícones como roxa. */
+    font-size: 0.8em; /* Reduz o tamanho da fonte dos ícones. */
+    padding: 10px; /* Adiciona preenchimento ao redor dos ícones. */
+    transition: color 0.3s; /* Define uma transição suave para a cor do ícone. */
+}
+
+i:hover { /* Aplica estilos quando o cursor passa sobre os ícones. */
+    color: #bb86fc; /* Mantém a cor roxa ao passar sobre o ícone. */
+}
+
+button { /* Seleciona todos os elementos <button>. */
+    padding: 10px 15px; /* Adiciona preenchimento ao botão. */
+    background-color: #bb86fc; /* Define um fundo roxo para o botão. */
+    color: white; /* Define a cor do texto do botão como branca. */
+    border: none; /* Remove a borda padrão do botão. */
+    border-radius: 5px; /* Adiciona bordas arredondadas ao botão. */
+    cursor: pointer; /* Define o cursor como ponteiro ao passar sobre o botão. */
+    font-size: 0.9em; /* Reduz o tamanho da fonte do botão. */
+    margin-top: 10px; /* Adiciona um espaço acima do botão. */
+    transition: background-color 0.3s, transform 0.2s; /* Define transições suaves para a cor de fundo e transformação. */
+}
+
+button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
+    background-color: #9a67ea; /* Altera a cor de fundo para um tom mais escuro ao passar sobre o botão. */
+    transform: translateY(-2px); /* Move o botão 2px para cima ao passar o mouse. */
+}
+
+.results { /* Seleciona a classe 'results'. */
+    margin-top: 10px; /* Adiciona um espaço acima da seção de resultados. */
+    padding: 10px; /* Adiciona preenchimento interno. */
+    border: 1px solid #444; /* Define uma borda escura ao redor da seção de resultados. */
+    border-radius: 5px; /* Adiciona bordas arredondadas à seção de resultados. */
+    background-color: #1e1e1e; /* Define um fundo escuro para a seção de resultados. */
+    color: #e0e0e0; /* Define a cor do texto da seção de resultados como clara. */
+}
+
+.metas { /* Seleciona a classe 'metas'. */
+    display: flex; /* Define um contêiner flexível. */
+    justify-content: space-between; /* Distribui os itens com espaço entre eles. */
+    flex-wrap: wrap; /* Permite quebra de linha quando necessário. */
+    margin-top: 20px; /* Adiciona um espaço acima da seção de metas. */
+    padding: 10px; /* Adiciona preenchimento interno. */
+    background-color: #1e1e1e; /* Define um fundo escuro para a seção de metas. */
+    border-radius: 5px; /* Adiciona bordas arredondadas à seção de metas. */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra à seção de metas. */
+}
+
+.meta { /* Seleciona a classe 'meta'. */
+    display: flex; /* Define um contêiner flexível. */
+    flex-direction: column; /* Alinha os itens em coluna. */
+    align-items: center; /* Centraliza os itens horizontalmente. */
+    width: 18%; /* Define a largura da meta. */
+    min-width: 50px; /* Define uma largura mínima para a meta. */
+    padding: 5px; /* Adiciona preenchimento interno. */
+    margin-bottom: 10px; /* Adiciona um espaço inferior entre as metas. */
+    background-color: #333; /* Define um fundo escuro para a meta. */
+    border-radius: 5px; /* Adiciona bordas arredondadas à meta. */
+    text-align: center; /* Centraliza o texto dentro da meta. */
+    font-size: 0.7em; /* Reduz o tamanho da fonte da meta. */
+}
+
+.estrela { /* Seleciona a classe 'estrela'. */
+    width: 15px; /* Define a largura da estrela. */
+    height: 15px; /* Define a altura da estrela. */
+    margin-bottom: 5px; /* Adiciona um espaço inferior à estrela. */
+    border-radius: 50%; /* Torna a estrela redonda. */
+    background-color: #ccc; /* Define uma cor de destaque para as estrelas. */
+    transition: background-color 0.3s; /* Define uma transição suave para a cor de fundo da estrela. */
+}
+
+footer { /* Seleciona o elemento <footer>. */
+    margin-top: 20px; /* Adiciona um espaço acima do rodapé. */
+    text-align: center; /* Centraliza o texto do rodapé. */
+}
+
+.footer-content { /* Seleciona a classe 'footer-content'. */
+    font-size: 0.8em; /* Reduz o tamanho da fonte no rodapé. */
+    color: #bb86fc; /* Define a cor do texto do rodapé como roxa. */
+}
+
+.footer-content a { /* Seleciona links dentro da classe 'footer-content'. */
+    color: #bb86fc; /* Define a cor dos links como roxa. */
+    text-decoration: none; /* Remove o sublinhado dos links. */
+}
+
+.footer-content span { /* Seleciona elementos <span> dentro da classe 'footer-content'. */
+    color: #e0e0e0; /* Define a cor do texto do span como clara. */
+}
+
+footer p { /* Seleciona todos os elementos <p> dentro do rodapé. */
+    margin-bottom: 5px; /* Adiciona um espaço inferior ao parágrafo. */
+    font-size: 0.9em; /* Reduz o tamanho da fonte do parágrafo. */
+    color: #bbb; /* Define a cor do texto do rodapé como um cinza claro. */
+}
