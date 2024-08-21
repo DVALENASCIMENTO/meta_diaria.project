@@ -6,9 +6,13 @@
 }
 
 body { /* Seleciona o elemento <body> da página. */
+    display: flex;
     font-family: 'Arial', sans-serif; /* Define a fonte como Arial, com uma fonte genérica como fallback. */
     background-color: #121212; /* Define um fundo escuro para o body. */
     color: #e0e0e0; /* Define a cor do texto como clara. */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    flex-direction: column; /* Mantém os itens em uma coluna */
 }
 
 .container { /* Seleciona a classe 'container'. */
@@ -21,25 +25,55 @@ body { /* Seleciona o elemento <body> da página. */
     overflow: hidden; /* Impede que o conteúdo vaze para fora do contêiner. */
 }
 
-h1 { /* Seleciona todos os elementos <h1>. */
-    text-align: center; /* Centraliza o texto do título. */
-    margin-bottom: 20px; /* Adiciona um espaço inferior de 20px. */
-    color: #bb86fc; /* Define a cor do título como roxa. */
-    font-size: 1.5em; /* Define o tamanho da fonte do título como 1.5 vezes o tamanho padrão. */
-    font-weight: 600; /* Define a espessura da fonte do título. */
-    animation: fadeIn 1s ease-in-out; /* Adiciona uma animação de fade-in ao título. */
+h1 {
+    width: 100%; /* Garante que o h1 ocupe toda a largura da página */
+    text-align: center; /* Centraliza o texto do h1 */
+    margin: 20px 0; /* Adiciona um espaço superior e inferior */
+    font-size: 1.5em; /* Define o tamanho da fonte */
+    font-weight: 600; /* Define a espessura da fonte */
+    color: transparent; /* Torna o texto invisível para exibir o gradiente */
+    background-clip: text;
+    -webkit-background-clip: text; /* Suporte para navegadores WebKit */
+    animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
+    position: relative; /* Garante que os pseudo-elementos sejam posicionados corretamente */
 }
 
-@keyframes fadeIn { /* Define a animação chamada fadeIn. */
-    from { /* Define o estado inicial da animação. */
-        opacity: 0; /* Inicia com a opacidade 0 (invisível). */
-        transform: translateY(-20px); /* Move o elemento 20px para cima. */
+h1::before {
+    content: attr(data-text); /* Exibe o texto do h1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
+    background-size: 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
     }
-    to { /* Define o estado final da animação. */
-        opacity: 1; /* Termina com a opacidade 1 (visível). */
-        transform: translateY(0); /* Retorna o elemento à sua posição original. */
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
+
+@keyframes blinkAnimation {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
 
 .inputs { /* Seleciona a classe 'inputs'. */
     display: flex; /* Define um contêiner flexível. */
@@ -163,38 +197,80 @@ button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
 
 .button-container {
     display: flex;
-    justify-content: center;
-    margin: 20px 0;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 .animated-button {
-    background: linear-gradient(90deg, #ff6a00, #ee0979); /* Degradê de cores */
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 20px;
-    text-decoration: none;
-    font-size: 18px;
+    background-color: #333; /* Cor de fundo dos botões */
+    font-size: 0.6em; /* Tamanho reduzido do texto */
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Troca de fonte */
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0 10px;
-    transition: transform 0.3s;
-    animation: pulse 1.5s infinite; /* Animação de pulsar */
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    border: 2px solid #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    color: transparent; /* Torna o texto invisível para exibir o gradiente */
+    background-clip: text;
+    -webkit-background-clip: text; /* Suporte para navegadores WebKit */
+    animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
 }
 
-.animated-button:hover {
-    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+.animated-button::before {
+    content: attr(data-text); /* Exibe o texto do botão */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
+    background-size: 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    z-index: 1;
+    animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
 }
 
-@keyframes pulse {
+@keyframes gradientAnimation {
     0% {
-        transform: scale(1);
+        background-position: 0% 50%;
     }
     50% {
-        transform: scale(1.1);
+        background-position: 100% 50%;
     }
     100% {
-        transform: scale(1);
+        background-position: 0% 50%;
     }
 }
+
+@keyframes blinkAnimation {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animated-button:hover::before {
+    animation: none; /* Remove a animação ao passar o mouse */
+}
+
 
 
 footer { /* Seleciona o elemento <footer>. */
