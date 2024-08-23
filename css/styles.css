@@ -271,10 +271,27 @@ button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
     animation: none; /* Remove a animação ao passar o mouse */
 }
 
+.calculator-container {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.calculator-image {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.calculator-image:hover {
+    transform: scale(1.1); /* Aumenta a imagem em 10% */
+    opacity: 0.8; /* Torna a imagem um pouco transparente */
+}
+
 
 
 footer { /* Seleciona o elemento <footer>. */
     margin-top: 20px; /* Adiciona um espaço acima do rodapé. */
+    margin-bottom: 20px;
     text-align: center; /* Centraliza o texto do rodapé. */
 }
 
