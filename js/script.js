@@ -23,7 +23,7 @@ function toggleEdit(id) { // Define a função 'toggleEdit' que aceita um parâm
         }
 
         // Salva o valor no localStorage
-        localStorage.setItem(id, input.value); // Armazena o valor no localStorage usando o 'id' como chave.
+        localStorage.setItem(`meta_diaria_${id}`, input.value); // Armazena o valor no localStorage com prefixo 'meta_diaria_'.
     }
 }
 
@@ -93,46 +93,45 @@ function salvarValoresInputs() { // Define a função 'salvarValoresInputs' para
     const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"]; // Define um array com os IDs dos campos.
     campos.forEach(id => { // Itera sobre cada ID no array.
         const valor = document.getElementById(id).value; // Obtém o valor do campo de entrada correspondente.
-        localStorage.setItem(id, valor); // Armazena o valor no localStorage usando o ID como chave.
+        localStorage.setItem(`meta_diaria_${id}`, valor); // Armazena o valor no localStorage com prefixo 'meta_diaria_'.
     });
 }
 
 function salvarResultados(metaDiaria, tendencia, diasATrabalhar) { // Define a função 'salvarResultados' para armazenar resultados calculados.
-    localStorage.setItem("metaDiaria", metaDiaria); // Armazena a meta diária no localStorage.
-    localStorage.setItem("tendencia", tendencia); // Armazena a tendência no localStorage.
-    localStorage.setItem("diasATrabalhar", diasATrabalhar); // Armazena os dias a trabalhar no localStorage.
+    localStorage.setItem("meta_diaria_metaDiaria", metaDiaria); // Armazena a meta diária no localStorage com prefixo 'meta_diaria_'.
+    localStorage.setItem("meta_diaria_tendencia", tendencia); // Armazena a tendência no localStorage com prefixo 'meta_diaria_'.
+    localStorage.setItem("meta_diaria_diasATrabalhar", diasATrabalhar); // Armazena os dias a trabalhar no localStorage com prefixo 'meta_diaria_'.
 }
 
 function carregarResultados() { // Define a função 'carregarResultados' para recuperar os valores armazenados.
     const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"]; // Define um array com os IDs dos campos.
     campos.forEach(id => { // Itera sobre cada ID no array.
-        const valor = localStorage.getItem(id); // Obtém o valor do localStorage usando o ID como chave.
+        const valor = localStorage.getItem(`meta_diaria_${id}`); // Obtém o valor do localStorage usando o ID com prefixo 'meta_diaria_'.
         if (valor !== null) { // Verifica se o valor não é nulo.
             document.getElementById(id).value = valor; // Define o valor do campo de entrada com o valor recuperado.
             const displayValue = document.getElementById(`display-${id}`); // Seleciona o elemento que exibe o valor formatado.
             if (id === "diasMes" || id === "diasTrabalhados") { // Verifica se o ID é 'diasMes' ou 'diasTrabalhados'.
-                displayValue.textContent = parseInt(valor, 10); // Exibe como inteiro.
+                displayValue.textContent = parseInt(valor, 10); // Define o valor exibido como inteiro.
             } else {
-                displayValue.textContent = formatarNumero(parseFloat(valor.replace(',', '.'))); // Formata o valor com casas decimais.
+                displayValue.textContent = formatarNumero(parseFloat(valor.replace(',', '.'))); // Define o valor exibido como decimal formatado.
             }
         }
     });
 
-    // Carregar resultados salvos
-    const metaDiaria = localStorage.getItem("metaDiaria"); // Obtém a meta diária do localStorage.
-    const tendencia = localStorage.getItem("tendencia"); // Obtém a tendência do localStorage.
-    const diasATrabalhar = localStorage.getItem("diasATrabalhar"); // Obtém os dias a trabalhar do localStorage.
+    const metaDiaria = localStorage.getItem("meta_diaria_metaDiaria"); // Obtém a meta diária armazenada no localStorage.
+    const tendencia = localStorage.getItem("meta_diaria_tendencia"); // Obtém a tendência armazenada no localStorage.
+    const diasATrabalhar = localStorage.getItem("meta_diaria_diasATrabalhar"); // Obtém os dias a trabalhar armazenados no localStorage.
 
     if (metaDiaria !== null) { // Verifica se a meta diária não é nula.
-        document.getElementById("meta-diaria").textContent = formatarNumero(parseFloat(metaDiaria)); // Exibe a meta diária formatada.
+        document.getElementById("meta-diaria").textContent = formatarNumero(parseFloat(metaDiaria)); // Define o valor da meta diária formatada.
     }
     if (tendencia !== null) { // Verifica se a tendência não é nula.
-        document.getElementById("tendencia").textContent = parseFloat(tendencia).toFixed(2) + "%"; // Exibe a tendência com duas casas decimais.
+        document.getElementById("tendencia").textContent = tendencia + "%"; // Define o valor da tendência com o símbolo de porcentagem.
     }
     if (diasATrabalhar !== null) { // Verifica se os dias a trabalhar não são nulos.
-        document.getElementById("dias-a-trabalhar").textContent = parseInt(diasATrabalhar, 10); // Exibe os dias a trabalhar como inteiro.
+        document.getElementById("dias-a-trabalhar").textContent = diasATrabalhar; // Define o valor dos dias a trabalhar.
     }
 }
 
-// Carregar os dados salvos ao carregar a página
-window.onload = carregarResultados; // Define a função que será executada ao carregar a página como 'carregarResultados'.
+// Carrega os resultados armazenados quando a página é carregada
+document.addEventListener("DOMContentLoaded", carregarResultados); // Adiciona um listener para o evento 'DOMContentLoaded' para carregar resultados ao carregar a página.
