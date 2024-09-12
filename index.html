@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Diária Project</title>
+    <title>Meta Diária</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1 data-text="Meta Diária Project">Meta Diária Project</h1>
+    <div class="intro-section">
+        <h1 data-text="Meta Diária Project">Meta Diária</h1>
+        <p>"Acompanhe e alcance suas metas diárias com eficiência e motivação"</p>
+        <button class="start-button" onclick="scrollToContent()">Iniciar</button>
+    </div>
+
+    <div class="container" id="main-content">
+        <!-- Adicionado para exibir data e hora -->
+        <div class="date-time">
+            <p id="data-hora"></p>
+        </div>
         <div class="inputs">
             <div class="input-group">
                 <label for="diasMes">Dias do Mês:</label>
@@ -61,6 +70,7 @@
             </div>
             <button onclick="calcularMeta()">Calcular</button>
         </div>
+        
         <div class="results" id="resultados">
             <p>Meta Diária: <span id="meta-diaria">0</span></p>
             <p>Tendência: <span id="tendencia">0%</span></p>
@@ -89,22 +99,21 @@
                 <p>5ª meta alcançada</p>
             </div>
         </div>
-        
-        <!-- Botões adicionados -->
+
         <div class="button-container">
             <a href="https://dvalenascimento.github.io/salesCalc_Pro.project/" class="animated-button" data-text="Sales Calc Pro"></a>
-
             <a href="https://dvalenascimento.github.io/metaTracker.project/" class="animated-button" data-text="Meta Tracker"></a>
             <a href="https://dvalenascimento.github.io/vendaVision365.project/" class="animated-button" data-text="Venda Vision 365"></a>
             <a href="https://dvalenascimento.github.io/gestaodeAtendimento.project/" class="animated-button" data-text="Gestão de Atendimento"></a>
         </div>
+
         <div class="calculator-container">
             <a href="https://dvalenascimento.github.io/calcPro_Plus.Project/">
                 <img src="images/calc.jpg" alt="Calculadora" class="calculator-image">
             </a>
         </div>
     </div>
-    
+
     <footer>
         <p>Diego Nascimento - Analista e Desenvolvedor de Sistemas</p>
         <div class="footer-content">
@@ -113,7 +122,7 @@
             <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
         </div>
     </footer>
-    
+
     <script src="js/script.js"></script>
 </body>
 </html>

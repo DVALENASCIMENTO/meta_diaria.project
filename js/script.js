@@ -133,5 +133,25 @@ function carregarResultados() { // Define a função 'carregarResultados' para r
     }
 }
 
+function scrollToContent() {
+    document.getElementById("main-content").scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+function atualizarDataHora() {
+    const agora = new Date();
+    const opcoesData = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const opcoesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const data = agora.toLocaleDateString('pt-BR', opcoesData);
+    const hora = agora.toLocaleTimeString('pt-BR', opcoesHora);
+    document.getElementById('data-hora').innerText = `${data} ${hora}`;
+}
+
+window.onload = function() {
+    atualizarDataHora(); // Atualiza a data e hora ao carregar a página
+    setInterval(atualizarDataHora, 1000); // Atualiza a cada segundo
+}
+
 // Carrega os resultados armazenados quando a página é carregada
 document.addEventListener("DOMContentLoaded", carregarResultados); // Adiciona um listener para o evento 'DOMContentLoaded' para carregar resultados ao carregar a página.
