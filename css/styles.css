@@ -1,56 +1,73 @@
 /* Reset básico */ 
-* { /* Seleciona todos os elementos do documento. */
-    margin: 0; /* Remove a margem padrão de todos os elementos. */
-    padding: 0; /* Remove o preenchimento padrão de todos os elementos. */
-    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura e altura dos elementos. */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
-body { /* Seleciona o elemento <body> da página. */
+body { 
     display: flex;
-    font-family: 'Arial', sans-serif; /* Define a fonte como Arial, com uma fonte genérica como fallback. */
-    background-color: #121212; /* Define um fundo escuro para o body. */
-    color: #e0e0e0; /* Define a cor do texto como clara. */
-    align-items: center; /* Centraliza o conteúdo verticalmente */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    flex-direction: column; /* Mantém os itens em uma coluna */
+    font-family: 'Arial', sans-serif; 
+    background: linear-gradient(45deg, #ab47bc, #4caf50); /* Primária e Complementar */
+    color: #e0e0e0; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column; 
 }
 
-.container { /* Seleciona a classe 'container'. */
-    max-width: 100%; /* Define a largura máxima como 100%. */
-    margin: 0 auto; /* Centraliza o conteúdo horizontalmente. */
-    padding: 20px; /* Adiciona um preenchimento interno de 20px. */
-    background: #1e1e1e; /* Define um fundo escuro para o contêiner. */
-    border-radius: 10px; /* Adiciona bordas arredondadas ao contêiner. */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra ao contêiner. */
-    overflow: hidden; /* Impede que o conteúdo vaze para fora do contêiner. */
+.container { 
+    max-width: 100%; 
+    margin: 0 auto; 
+    padding: 20px; 
+    background: #1e1e1e; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+}
+
+.intro-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(45deg, #ab47bc, #4caf50); /* Primária e Complementar */
+    color: #fdd835; /* Secundária */
 }
 
 h1 {
-    width: 100%; /* Garante que o h1 ocupe toda a largura da página */
-    text-align: center; /* Centraliza o texto do h1 */
-    margin: 20px 0; /* Adiciona um espaço superior e inferior */
-    font-size: 1.5em; /* Define o tamanho da fonte */
-    font-weight: 600; /* Define a espessura da fonte */
-    color: transparent; /* Torna o texto invisível para exibir o gradiente */
+    width: 100%; 
+    text-align: center; 
+    margin: 20px 0; 
+    font-size: 2.5em; 
+    font-weight: 600; 
+    color: transparent; 
     background-clip: text;
-    -webkit-background-clip: text; /* Suporte para navegadores WebKit */
-    animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
-    position: relative; /* Garante que os pseudo-elementos sejam posicionados corretamente */
+    -webkit-background-clip: text; 
+    animation: blinkAnimation 1.5s step-end infinite; 
+    position: relative; 
 }
 
 h1::before {
-    content: attr(data-text); /* Exibe o texto do h1 */
+    content: attr(data-text); 
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
-    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
+    background: linear-gradient(90deg, #6a1b9a, #c62828, #6a1b9a);
     background-size: 300%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
+    animation: gradientAnimation 3s ease infinite; 
+}
+
+p{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
 }
 
 @keyframes gradientAnimation {
@@ -74,53 +91,82 @@ h1::before {
     }
 }
 
-
-.inputs { /* Seleciona a classe 'inputs'. */
-    display: flex; /* Define um contêiner flexível. */
-    flex-direction: column; /* Alinha os itens em coluna. */
-    gap: 10px; /* Adiciona um espaço de 10px entre os itens. */
+.start-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #ff9800; /* Acento */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.input-group { /* Seleciona a classe 'input-group'. */
-    display: flex; /* Define um contêiner flexível para os elementos dentro do grupo. */
-    align-items: center; /* Alinha os itens verticalmente ao centro. */
-    position: relative; /* Permite o uso de posicionamento absoluto em elementos filhos. */
-    border-radius: 5px; /* Adiciona bordas arredondadas ao grupo de entrada. */
-    overflow: hidden; /* Garante que o conteúdo não vaze. */
+.start-button:hover {
+    background-color: #ab47bc; /* Primária */
 }
 
-label { /* Seleciona todos os elementos <label>. */
-    flex: 1; /* Permite que o rótulo ocupe todo o espaço disponível. */
-    font-size: 0.8em; /* Reduz o tamanho da fonte do rótulo. */
+/* Container principal após a rolagem */
+#main-content {
+    padding: 20px;
 }
 
-input[type="number"] { /* Seleciona campos de entrada do tipo número. */
-    flex: 1; /* Permite que o campo de entrada ocupe todo o espaço disponível. */
-    padding: 8px 10px; /* Adiciona preenchimento interno. */
-    border: 1px solid #444; /* Define uma borda escura ao redor do campo. */
-    border-radius: 5px; /* Adiciona bordas arredondadas ao campo. */
-    font-size: 0.8em; /* Reduz o tamanho da fonte do campo. */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Define transições suaves para a cor da borda e sombra. */
-    display: none; /* Oculta o campo de entrada por padrão. */
-    background-color: #1e1e1e; /* Define um fundo escuro para o campo. */
-    color: #e0e0e0; /* Define a cor do texto do campo como clara. */
+.date-time {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #fdd835; /* Secundária */
 }
 
-input[type="number"]:focus { /* Aplica estilos quando o campo de entrada está em foco. */
-    border-color: #bb86fc; /* Altera a cor da borda para roxa quando em foco. */
-    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5); /* Adiciona uma sombra ao campo em foco. */
-    outline: none; /* Remove a borda padrão de foco. */
+
+
+.inputs { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
 }
 
-.display-value { /* Seleciona a classe 'display-value'. */
-    flex: 1; /* Permite que o valor exibido ocupe todo o espaço disponível. */
-    padding: 8px 10px; /* Adiciona preenchimento interno. */
-    border: 1px solid transparent; /* Borda transparente. */
-    border-radius: 5px; /* Adiciona bordas arredondadas ao valor exibido. */
-    background-color: #333; /* Define um fundo escuro para o valor exibido. */
-    color: #e0e0e0; /* Define a cor do texto do valor exibido como clara. */
-    font-size: 0.8em; /* Reduz o tamanho da fonte do valor exibido. */
-    cursor: default; /* Define o cursor como padrão ao passar sobre o valor exibido. */
+.input-group { 
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    border-radius: 5px; 
+    overflow: hidden; 
+}
+
+label { 
+    flex: 1; 
+    font-size: 0.8em; 
+}
+
+input[type="number"] { 
+    flex: 1; 
+    padding: 8px 10px; 
+    border: 1px solid #444; 
+    border-radius: 5px; 
+    font-size: 0.8em; 
+    transition: border-color 0.3s, box-shadow 0.3s; 
+    display: none; 
+    background-color: #1e1e1e; 
+    color: #e0e0e0; 
+}
+
+input[type="number"]:focus { 
+    border-color: #bb86fc; 
+    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5); 
+    outline: none; 
+}
+
+.display-value { 
+    flex: 1; 
+    padding: 8px 10px; 
+    border: 1px solid transparent; 
+    border-radius: 5px; 
+    background-color: #333; 
+    color: #e0e0e0; 
+    font-size: 0.8em; 
+    cursor: default; 
 }
 
 i { /* Seleciona todos os elementos <i> (ícones). */
@@ -137,7 +183,7 @@ i:hover { /* Aplica estilos quando o cursor passa sobre os ícones. */
 
 button { /* Seleciona todos os elementos <button>. */
     padding: 10px 15px; /* Adiciona preenchimento ao botão. */
-    background-color: #bb86fc; /* Define um fundo roxo para o botão. */
+    background-color: #6000d5; /* Define um fundo roxo para o botão. */
     color: white; /* Define a cor do texto do botão como branca. */
     border: none; /* Remove a borda padrão do botão. */
     border-radius: 5px; /* Adiciona bordas arredondadas ao botão. */
