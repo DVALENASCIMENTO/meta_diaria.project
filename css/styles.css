@@ -8,8 +8,8 @@
 body { 
     display: flex;
     font-family: 'Arial', sans-serif; 
-    background: linear-gradient(45deg, #ab47bc, #4caf50); /* Primária e Complementar */
-    color: #e0e0e0; 
+    background: linear-gradient(45deg, #00539C, #3DBE29); /* Azul Escuro e Verde */
+    color: #F1F1F1; /* Cinza Claro */
     align-items: center; 
     justify-content: center; 
     flex-direction: column; 
@@ -32,41 +32,21 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(45deg, #ab47bc, #4caf50); /* Primária e Complementar */
-    color: #fdd835; /* Secundária */
+    background: linear-gradient(45deg, #00539C, #3DBE29); /* Azul Escuro e Verde */
+    color: #FFD700; /* Amarelo */
 }
 
-h1 {
-    width: 100%; 
-    text-align: center; 
-    margin: 20px 0; 
-    font-size: 2.5em; 
-    font-weight: 600; 
-    color: transparent; 
-    background-clip: text;
-    -webkit-background-clip: text; 
-    animation: blinkAnimation 1.5s step-end infinite; 
-    position: relative; 
-}
-
-h1::before {
-    content: attr(data-text); 
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    background: linear-gradient(90deg, #6a1b9a, #c62828, #6a1b9a);
-    background-size: 300%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: gradientAnimation 3s ease infinite; 
+/* Estilizando a imagem do logo */
+.logo {
+    max-width: 250px; 
+    margin-bottom: 20px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
 p{
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: #F1F1F1; /* Cinza claro */
     font-size: 1.2em;
 }
 
@@ -92,19 +72,13 @@ p{
 }
 
 .start-button {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    background-color: #ff9800; /* Acento */
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background-color: #FFD700; /* Amarelo */
+    color: #00539C; /* Azul Escuro */
 }
 
 .start-button:hover {
-    background-color: #ab47bc; /* Primária */
+    background-color: #00A7E1; /* Azul Claro no hover */
+    color: #FFFFFF; /* Branco no texto */
 }
 
 /* Container principal após a rolagem */
@@ -116,7 +90,7 @@ p{
     text-align: center;
     margin-bottom: 20px;
     font-size: 12px;
-    color: #fdd835; /* Secundária */
+    color: #FFD700; /* Amarelo */
 }
 
 
@@ -140,7 +114,8 @@ label {
     font-size: 0.8em; 
 }
 
-input[type="number"] { 
+/* Estilizando input[type="number"] */
+input[type="number"] {  
     flex: 1; 
     padding: 8px 10px; 
     border: 1px solid #444; 
@@ -148,77 +123,83 @@ input[type="number"] {
     font-size: 0.8em; 
     transition: border-color 0.3s, box-shadow 0.3s; 
     display: none; 
-    background-color: #1e1e1e; 
-    color: #e0e0e0; 
+    background-color: #00539C; /* Azul Escuro */
+    color: #F1F1F1; /* Cinza Claro */
 }
 
 input[type="number"]:focus { 
-    border-color: #bb86fc; 
-    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5); 
+    border-color: #FFD700; /* Amarelo */
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Amarelo translúcido */
     outline: none; 
 }
 
+
+/* Estilizando .display-value */
 .display-value { 
     flex: 1; 
     padding: 8px 10px; 
     border: 1px solid transparent; 
     border-radius: 5px; 
-    background-color: #333; 
-    color: #e0e0e0; 
+    background-color: #00539C; /* Azul Escuro */
+    color: #F1F1F1; /* Cinza Claro */
     font-size: 0.8em; 
     cursor: default; 
 }
 
-i { /* Seleciona todos os elementos <i> (ícones). */
-    cursor: pointer; /* Define o cursor como ponteiro ao passar sobre os ícones. */
-    color: #bb86fc; /* Define a cor dos ícones como roxa. */
-    font-size: 0.8em; /* Reduz o tamanho da fonte dos ícones. */
-    padding: 10px; /* Adiciona preenchimento ao redor dos ícones. */
-    transition: color 0.3s; /* Define uma transição suave para a cor do ícone. */
+/* Estilizando ícones <i> */
+i { 
+    cursor: pointer; 
+    color: #FFD700; /* Amarelo */
+    font-size: 0.8em; 
+    padding: 10px; 
+    transition: color 0.3s; 
 }
 
-i:hover { /* Aplica estilos quando o cursor passa sobre os ícones. */
-    color: #bb86fc; /* Mantém a cor roxa ao passar sobre o ícone. */
+i:hover { 
+    color: #00A7E1; /* Azul Claro no hover */
 }
 
-button { /* Seleciona todos os elementos <button>. */
-    padding: 10px 15px; /* Adiciona preenchimento ao botão. */
-    background-color: #6000d5; /* Define um fundo roxo para o botão. */
-    color: white; /* Define a cor do texto do botão como branca. */
-    border: none; /* Remove a borda padrão do botão. */
-    border-radius: 5px; /* Adiciona bordas arredondadas ao botão. */
-    cursor: pointer; /* Define o cursor como ponteiro ao passar sobre o botão. */
-    font-size: 0.9em; /* Reduz o tamanho da fonte do botão. */
-    margin-top: 10px; /* Adiciona um espaço acima do botão. */
-    transition: background-color 0.3s, transform 0.2s; /* Define transições suaves para a cor de fundo e transformação. */
+
+/* Estilizando botões */
+button { 
+    padding: 10px 15px; 
+    background-color: #3DBE29; /* Verde */
+    color: #FFFFFF; /* Branco */
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 0.9em; 
+    margin-top: 10px; 
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
-button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
-    background-color: #9a67ea; /* Altera a cor de fundo para um tom mais escuro ao passar sobre o botão. */
-    transform: translateY(-2px); /* Move o botão 2px para cima ao passar o mouse. */
+button:hover { 
+    background-color: #00A7E1; /* Azul Claro */
+    transform: translateY(-2px); 
 }
 
-.results { /* Seleciona a classe 'results'. */
-    margin-top: 10px; /* Adiciona um espaço acima da seção de resultados. */
-    padding: 10px; /* Adiciona preenchimento interno. */
-    border: 1px solid #444; /* Define uma borda escura ao redor da seção de resultados. */
-    border-radius: 5px; /* Adiciona bordas arredondadas à seção de resultados. */
-    background-color: #1e1e1e; /* Define um fundo escuro para a seção de resultados. */
-    color: #e0e0e0; /* Define a cor do texto da seção de resultados como clara. */
+.results { 
+    margin-top: 10px; 
+    padding: 10px; 
+    border: 1px solid #444; /* Borda escura */
+    border-radius: 5px; 
+    background-color: #1e1e1e; /* Fundo escuro */
+    color: #F1F1F1; /* Cinza Claro */
 }
 
-.metas { /* Seleciona a classe 'metas'. */
-    display: flex; /* Define um contêiner flexível. */
-    justify-content: space-between; /* Distribui os itens com espaço entre eles. */
-    flex-wrap: wrap; /* Permite quebra de linha quando necessário. */
-    margin-top: 20px; /* Adiciona um espaço acima da seção de metas. */
-    padding: 10px; /* Adiciona preenchimento interno. */
-    background-color: #1e1e1e; /* Define um fundo escuro para a seção de metas. */
-    border-radius: 5px; /* Adiciona bordas arredondadas à seção de metas. */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra à seção de metas. */
+.metas { 
+    display: flex; 
+    justify-content: space-between; 
+    flex-wrap: wrap; 
+    margin-top: 20px; 
+    padding: 10px; 
+    background-color: #1e1e1e; /* Fundo escuro */
+    border-radius: 5px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 
-.meta { /* Seleciona a classe 'meta'. */
+
+.meta { 
     display: flex; /* Define um contêiner flexível. */
     flex-direction: column; /* Alinha os itens em coluna. */
     align-items: center; /* Centraliza os itens horizontalmente. */
@@ -226,20 +207,28 @@ button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
     min-width: 50px; /* Define uma largura mínima para a meta. */
     padding: 5px; /* Adiciona preenchimento interno. */
     margin-bottom: 10px; /* Adiciona um espaço inferior entre as metas. */
-    background-color: #333; /* Define um fundo escuro para a meta. */
-    border-radius: 5px; /* Adiciona bordas arredondadas à meta. */
+    background-color: #333; /* Fundo escuro */
+    border-radius: 5px; /* Borda arredondada */
     text-align: center; /* Centraliza o texto dentro da meta. */
-    font-size: 0.7em; /* Reduz o tamanho da fonte da meta. */
+    font-size: 0.7em; /* Tamanho da fonte reduzido */
+    color: #F1F1F1; /* Texto em Cinza Claro para contraste */
+    border: 1px solid #444; /* Borda escura para um leve destaque */
 }
 
-.estrela { /* Seleciona a classe 'estrela'. */
+.estrela { 
     width: 15px; /* Define a largura da estrela. */
     height: 15px; /* Define a altura da estrela. */
     margin-bottom: 5px; /* Adiciona um espaço inferior à estrela. */
     border-radius: 50%; /* Torna a estrela redonda. */
-    background-color: #ccc; /* Define uma cor de destaque para as estrelas. */
-    transition: background-color 0.3s; /* Define uma transição suave para a cor de fundo da estrela. */
+    background-color: #ffffff; /* Cor Amarelo para destaque, representando estrelas. */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo da estrela. */
 }
+
+/* Opcional: Estilo para interação, por exemplo, ao passar o mouse */
+.estrela:hover { 
+    background-color: #FFC107; /* Amarelo mais escuro ao passar o mouse. */
+}
+
 
 .button-container {
     display: flex;
@@ -273,23 +262,19 @@ button:hover { /* Aplica estilos quando o cursor passa sobre o botão. */
     animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
 }
 
-.animated-button::before {
-    content: attr(data-text); /* Exibe o texto do botão */
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
-    background-size: 300%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    z-index: 1;
-    animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
+.animated-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding: 10px 20px; /* Adiciona preenchimento interno ao botão */
+    font-size: 1em; /* Tamanho da fonte do botão */
+    color: #FFFFFF; /* Cor do texto padrão do botão */
+    background-color: #3DBE29; /* Cor de fundo padrão do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+    font-family: 'Arial', sans-serif; /* Fonte do botão */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para cor de fundo e texto */
 }
 
 @keyframes gradientAnimation {
