@@ -32,7 +32,7 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(45deg, #00539C, #3DBE29); /* Azul Escuro e Verde */
+    background: linear-gradient(45deg, #229011, #00539C); /* Azul Escuro e Verde */
     color: #FFD700; /* Amarelo */
 }
 
