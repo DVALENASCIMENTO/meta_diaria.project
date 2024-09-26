@@ -262,19 +262,23 @@ button:hover {
     animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
 }
 
-.animated-button {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    padding: 10px 20px; /* Adiciona preenchimento interno ao botão */
-    font-size: 1em; /* Tamanho da fonte do botão */
-    color: #FFFFFF; /* Cor do texto padrão do botão */
-    background-color: #3DBE29; /* Cor de fundo padrão do botão */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Borda arredondada */
-    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-    font-family: 'Arial', sans-serif; /* Fonte do botão */
-    transition: background-color 0.3s, color 0.3s; /* Transição suave para cor de fundo e texto */
+.animated-button::before {
+    content: attr(data-text); /* Exibe o texto do botão */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
+    background-size: 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    z-index: 1;
+    animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
 }
 
 @keyframes gradientAnimation {
