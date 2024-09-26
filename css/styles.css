@@ -47,7 +47,7 @@ body {
 p{
     text-align: center;
     color: #F1F1F1; /* Cinza claro */
-    font-size: 1.2em;
+    font-size: 1.em;
 }
 
 @keyframes gradientAnimation {
@@ -229,37 +229,35 @@ button:hover {
     background-color: #FFC107; /* Amarelo mais escuro ao passar o mouse. */
 }
 
-
 .button-container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    justify-content: center; /* Centraliza horizontalmente os botões */
+    gap: 15px; /* Espaçamento entre os botões */
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+    margin: 0 auto; /* Centraliza o contêiner na página */
+    padding: 20px; /* Adiciona algum preenchimento ao redor dos botões */
 }
 
 .animated-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #333; /* Cor de fundo dos botões */
-    font-size: 0.6em; /* Tamanho reduzido do texto */
-    font-weight: bold;
-    font-family: 'Arial', sans-serif; /* Troca de fonte */
-    border-radius: 5px;
-    text-decoration: none;
     position: relative;
     overflow: hidden;
-    transition: background-color 0.3s;
-    border: 2px solid #444;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
-    width: 150px;
-    height: 40px;
-    text-align: center;
-    color: transparent; /* Torna o texto invisível para exibir o gradiente */
-    background-clip: text;
-    -webkit-background-clip: text; /* Suporte para navegadores WebKit */
-    animation: blinkAnimation 1.5s step-end infinite; /* Animação piscando */
+    display: inline-block;
+    width: 50px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 10px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+    font-family: 'Arial', sans-serif; /* Fonte do botão */
+    text-decoration: none; /* Remove o sublinhado do link */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para cor de fundo e texto */
+    overflow: hidden; /* Garante que a imagem não ultrapasse os limites do botão */
+}
+
+.animated-button img {
+    width: 100%; /* Ajusta a largura da imagem ao tamanho do botão */
+    height: 100%; /* Ajusta a altura da imagem ao tamanho do botão */
+    object-fit: cover; /* Garante que a imagem cubra o botão */
+    display: block; /* Remove o espaço abaixo da imagem */
 }
 
 .animated-button::before {
@@ -272,14 +270,22 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(90deg, #9a67ea, #ff6347, #9a67ea); /* Gradiente das letras */
+    background: linear-gradient(90deg, #00539C, #00A7E1, #00539C); /* Gradiente Azul Escuro e Azul Claro */
     background-size: 300%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     z-index: 1;
     animation: gradientAnimation 3s ease infinite; /* Animação do gradiente */
+    font-weight: bold; /* Adiciona negrito ao texto */
+    pointer-events: none; /* Evita que o texto sobreponha a imagem clicável */
 }
+
+.animated-button:hover {
+    background-color: #00539C; /* Azul Escuro ao passar o mouse */
+    color: #FFD700; /* Amarelo para o texto do botão ao passar o mouse */
+}
+
 
 @keyframes gradientAnimation {
     0% {
