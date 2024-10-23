@@ -155,3 +155,41 @@ window.onload = function() {
 
 // Carrega os resultados armazenados quando a página é carregada
 document.addEventListener("DOMContentLoaded", carregarResultados); // Adiciona um listener para o evento 'DOMContentLoaded' para carregar resultados ao carregar a página.
+
+function desenharMedidor(valorAtual, valorMaximo) {
+    const canvas = document.getElementById('metaGauge');
+    const ctx = canvas.getContext('2d');
+    const raio = 70; // Raio do arco
+    const centroX = canvas.width / 2; // Coordenada X do centro
+    const centroY = canvas.height; // Coordenada Y do centro (parte inferior do canvas)
+
+    // Limpar canvas antes de desenhar
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Desenhar o arco de fundo (sem preencher)
+    ctx.beginPath();
+    ctx.arc(centroX, centroY, raio, Math.PI, 0, false); // Arco de fundo (metade inferior do círculo)
+    ctx.lineWidth = 15; // Largura da linha do arco
+    ctx.strokeStyle = '#e0e0e0'; // Cor de fundo do arco
+    ctx.stroke();
+
+    // Calcular o percentual de progresso
+    const porcentagem = valorAtual / valorMaximo;
+    const anguloFinal = Math.PI * (1 - porcentagem); // O ângulo varia de PI (0%) a 0 (100%)
+
+    // Desenhar o arco de progresso
+    ctx.beginPath();
+    ctx.arc(centroX, centroY, raio, Math.PI, anguloFinal, false); // Arco de progresso
+    ctx.lineWidth = 15;
+    ctx.strokeStyle = '#76c7c0'; // Cor do progresso
+    ctx.stroke();
+
+    // Adicionar o texto de valor dentro do medidor
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${Math.round(porcentagem * 100)}%`, centroX, centroY - 20); // Texto indicando o percentual
+}
+
+// Exemplo de uso:
+desenharMedidor(75, 100); // Chamando a função com o valor atual de 75 e o máximo de 100
