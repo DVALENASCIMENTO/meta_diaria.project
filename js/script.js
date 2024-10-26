@@ -1,135 +1,122 @@
-function toggleEdit(id) { // Define a função 'toggleEdit' que aceita um parâmetro 'id'.
-    const input = document.getElementById(id); // Seleciona o elemento de entrada pelo 'id' fornecido.
-    const displayValue = document.getElementById(`display-${id}`); // Seleciona o elemento que exibe o valor atual, formatado.
+function toggleEdit(id) { 
+    const input = document.getElementById(id);
+    const displayValue = document.getElementById(`display-${id}`);
 
-    if (input.style.display === "none") { // Verifica se o campo de entrada está oculto.
-        input.style.display = "inline-block"; // Exibe o campo de entrada.
-        displayValue.style.display = "none"; // Oculta o valor exibido.
-
-        // Remove a formatação para que o valor seja editável
-        input.value = displayValue.textContent.replace(/\./g, '').replace(',', '.'); // Remove a formatação do valor exibido e coloca no campo de entrada.
-
-        // Seleciona automaticamente o texto do campo de entrada
-        input.select(); // Seleciona o conteúdo do campo de entrada para facilitar a edição.
-    } else {
-        input.style.display = "none"; // Oculta o campo de entrada.
-        displayValue.style.display = "inline-block"; // Exibe o valor formatado novamente.
-
-        // Formata o valor, tratando os dias como inteiros e os outros como decimais
-        if (id === "diasMes" || id === "diasTrabalhados") { // Verifica se o 'id' é 'diasMes' ou 'diasTrabalhados'.
-            displayValue.textContent = parseInt(input.value, 10); // Exibe como inteiro.
+    if (input && displayValue) {
+        if (input.style.display === "none" || input.style.display === "") {
+            input.style.display = "inline-block";
+            displayValue.style.display = "none";
+            input.value = displayValue.textContent.replace(/\./g, '').replace(',', '.');
+            input.select();
         } else {
-            displayValue.textContent = formatarNumero(parseFloat(input.value.replace(',', '.'))); // Formata o valor como decimal.
-        }
+            input.style.display = "none";
+            displayValue.style.display = "inline-block";
 
-        // Salva o valor no localStorage
-        localStorage.setItem(`meta_diaria_${id}`, input.value); // Armazena o valor no localStorage com prefixo 'meta_diaria_'.
+            if (id === "diasMes" || id === "diasTrabalhados") {
+                displayValue.textContent = parseInt(input.value, 10);
+            } else {
+                displayValue.textContent = formatarNumero(parseFloat(input.value.replace(',', '.')));
+            }
+
+            localStorage.setItem(`meta_diaria_${id}`, input.value);
+        }
     }
 }
 
-function calcularMeta() { // Define a função 'calcularMeta' para calcular as metas.
-    const diasMes = parseInt(document.getElementById("diasMes").value, 10); // Obtém o valor de 'diasMes' e o converte para inteiro.
-    const diasTrabalhados = parseInt(document.getElementById("diasTrabalhados").value, 10); // Obtém o valor de 'diasTrabalhados' e o converte para inteiro.
-    const meta2 = parseFloat(document.getElementById("meta2").value.replace('.', '').replace(',', '.')); // Obtém e formata o valor de 'meta2' como decimal.
-    const realizado = parseFloat(document.getElementById("realizado").value.replace('.', '').replace(',', '.')); // Obtém e formata o valor de 'realizado' como decimal.
+function calcularMeta() {
+    const diasMes = parseInt(document.getElementById("diasMes").value, 10);
+    const diasTrabalhados = parseInt(document.getElementById("diasTrabalhados").value, 10);
+    const meta2 = parseFloat(document.getElementById("meta2").value.replace('.', '').replace(',', '.'));
+    const realizado = parseFloat(document.getElementById("realizado").value.replace('.', '').replace(',', '.'));
 
-    // Calcular dias a trabalhar
-    const diasATrabalhar = diasMes - diasTrabalhados; // Calcula a quantidade de dias restantes para trabalhar.
+    const diasATrabalhar = diasMes - diasTrabalhados;
 
-    // Verifica se os dias a trabalhar são válidos para evitar divisão por zero
-    if (diasATrabalhar <= 0) { // Verifica se os dias a trabalhar são zero ou negativos.
-        alert("Verifique os dias trabalhados e do mês. Não é possível calcular com os valores atuais."); // Alerta o usuário sobre a impossibilidade de calcular.
-        return; // Encerra a função.
+    if (diasATrabalhar <= 0) {
+        alert("Verifique os dias trabalhados e do mês. Não é possível calcular com os valores atuais.");
+        return;
     }
 
-    // Calcula a Meta Diária
-    const metaDiaria = (meta2 - realizado) / diasATrabalhar; // Calcula a meta diária com base nos valores fornecidos.
+    const metaDiaria = (meta2 - realizado) / diasATrabalhar;
+    const metaDiariaFormatada = metaDiaria < 0 ? 0 : metaDiaria;
+    const tendencia = (realizado / diasTrabalhados) * (diasMes / meta2) * 100;
 
-    // Garante que a Meta Diária não fique negativa
-    const metaDiariaFormatada = metaDiaria < 0 ? 0 : metaDiaria; // Se a meta diária for negativa, define como 0.
+    document.getElementById("meta-diaria").textContent = formatarNumero(metaDiariaFormatada);
+    document.getElementById("tendencia").textContent = tendencia.toFixed(2) + "%";
+    document.getElementById("dias-a-trabalhar").textContent = diasATrabalhar;
 
-    // Calcula a Tendência
-    const tendencia = (realizado / diasTrabalhados) * (diasMes / meta2) * 100; // Calcula a tendência percentual.
-
-    // Atualiza os resultados na tela
-    document.getElementById("meta-diaria").textContent = formatarNumero(metaDiariaFormatada); // Exibe a meta diária formatada.
-    document.getElementById("tendencia").textContent = tendencia.toFixed(2) + "%"; // Exibe a tendência com duas casas decimais.
-    document.getElementById("dias-a-trabalhar").textContent = diasATrabalhar; // Exibe o número de dias a trabalhar.
-
-    // Atualiza as estrelas conforme as metas alcançadas
-    atualizarMetas(realizado, [ // Chama a função 'atualizarMetas' com os valores realizados e as metas.
-        parseFloat(document.getElementById("meta1").value.replace('.', '').replace(',', '.')), // Converte e formata o valor de 'meta1'.
-        meta2, // Usa o valor de 'meta2'.
-        parseFloat(document.getElementById("meta3").value.replace('.', '').replace(',', '.')), // Converte e formata o valor de 'meta3'.
-        parseFloat(document.getElementById("meta4").value.replace('.', '').replace(',', '.')), // Converte e formata o valor de 'meta4'.
-        parseFloat(document.getElementById("meta5").value.replace('.', '').replace(',', '.')) // Converte e formata o valor de 'meta5'.
+    atualizarMetas(realizado, [
+        parseFloat(document.getElementById("meta1").value.replace('.', '').replace(',', '.')),
+        meta2,
+        parseFloat(document.getElementById("meta3").value.replace('.', '').replace(',', '.')),
+        parseFloat(document.getElementById("meta4").value.replace('.', '').replace(',', '.')),
+        parseFloat(document.getElementById("meta5").value.replace('.', '').replace(',', '.'))
     ]);
 
-    // Salva os valores dos inputs no localStorage
-    salvarValoresInputs(); // Chama a função para salvar os valores dos campos de entrada.
-    // Salva os resultados no localStorage
-    salvarResultados(metaDiariaFormatada, tendencia, diasATrabalhar); // Chama a função para salvar os resultados calculados.
+    salvarValoresInputs();
+    salvarResultados(metaDiariaFormatada, tendencia, diasATrabalhar);
+
+    // Chamada para desenhar o medidor com valores atualizados
+    desenharMedidor(realizado, meta2);
 }
 
-function atualizarMetas(realizado, metas) { // Define a função 'atualizarMetas' que aceita os valores realizados e as metas.
-    for (let i = 0; i < metas.length; i++) { // Loop através das metas.
-        const estrela = document.getElementById(`estrela${i + 1}`); // Seleciona a estrela correspondente ao índice.
-        if (realizado >= metas[i]) { // Verifica se o valor realizado é maior ou igual à meta.
-            estrela.style.backgroundColor = "#ff0"; // Define a cor da estrela como amarela se a meta foi alcançada.
+function atualizarMetas(realizado, metas) {
+    for (let i = 0; i < metas.length; i++) {
+        const estrela = document.getElementById(`estrela${i + 1}`);
+        if (realizado >= metas[i]) {
+            estrela.style.backgroundColor = "#ff0";
         } else {
-            estrela.style.backgroundColor = "#ccc"; // Define a cor padrão se a meta não foi alcançada.
+            estrela.style.backgroundColor = "#ccc";
         }
     }
 }
 
-function formatarNumero(valor) { // Define a função 'formatarNumero' para formatar um número.
-    // Formata o número para o formato "32.500,81"
-    const partes = valor.toFixed(2).split("."); // Converte o valor para duas casas decimais e separa em partes (inteiro e decimal).
-    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Formatação para milhares, inserindo pontos.
-    return partes.join(","); // Substitui o ponto decimal por uma vírgula e retorna a string formatada.
+function formatarNumero(valor) {
+    const partes = valor.toFixed(2).split(".");
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return partes.join(",");
 }
 
-function salvarValoresInputs() { // Define a função 'salvarValoresInputs' para armazenar os valores dos campos de entrada.
-    const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"]; // Define um array com os IDs dos campos.
-    campos.forEach(id => { // Itera sobre cada ID no array.
-        const valor = document.getElementById(id).value; // Obtém o valor do campo de entrada correspondente.
-        localStorage.setItem(`meta_diaria_${id}`, valor); // Armazena o valor no localStorage com prefixo 'meta_diaria_'.
+function salvarValoresInputs() {
+    const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"];
+    campos.forEach(id => {
+        const valor = document.getElementById(id).value;
+        localStorage.setItem(`meta_diaria_${id}`, valor);
     });
 }
 
-function salvarResultados(metaDiaria, tendencia, diasATrabalhar) { // Define a função 'salvarResultados' para armazenar resultados calculados.
-    localStorage.setItem("meta_diaria_metaDiaria", metaDiaria); // Armazena a meta diária no localStorage com prefixo 'meta_diaria_'.
-    localStorage.setItem("meta_diaria_tendencia", tendencia); // Armazena a tendência no localStorage com prefixo 'meta_diaria_'.
-    localStorage.setItem("meta_diaria_diasATrabalhar", diasATrabalhar); // Armazena os dias a trabalhar no localStorage com prefixo 'meta_diaria_'.
+function salvarResultados(metaDiaria, tendencia, diasATrabalhar) {
+    localStorage.setItem("meta_diaria_metaDiaria", metaDiaria);
+    localStorage.setItem("meta_diaria_tendencia", tendencia);
+    localStorage.setItem("meta_diaria_diasATrabalhar", diasATrabalhar);
 }
 
-function carregarResultados() { // Define a função 'carregarResultados' para recuperar os valores armazenados.
-    const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"]; // Define um array com os IDs dos campos.
-    campos.forEach(id => { // Itera sobre cada ID no array.
-        const valor = localStorage.getItem(`meta_diaria_${id}`); // Obtém o valor do localStorage usando o ID com prefixo 'meta_diaria_'.
-        if (valor !== null) { // Verifica se o valor não é nulo.
-            document.getElementById(id).value = valor; // Define o valor do campo de entrada com o valor recuperado.
-            const displayValue = document.getElementById(`display-${id}`); // Seleciona o elemento que exibe o valor formatado.
-            if (id === "diasMes" || id === "diasTrabalhados") { // Verifica se o ID é 'diasMes' ou 'diasTrabalhados'.
-                displayValue.textContent = parseInt(valor, 10); // Define o valor exibido como inteiro.
+function carregarResultados() {
+    const campos = ["diasMes", "diasTrabalhados", "meta2", "realizado", "meta1", "meta3", "meta4", "meta5"];
+    campos.forEach(id => {
+        const valor = localStorage.getItem(`meta_diaria_${id}`);
+        if (valor !== null) {
+            document.getElementById(id).value = valor;
+            const displayValue = document.getElementById(`display-${id}`);
+            if (id === "diasMes" || id === "diasTrabalhados") {
+                displayValue.textContent = parseInt(valor, 10);
             } else {
-                displayValue.textContent = formatarNumero(parseFloat(valor.replace(',', '.'))); // Define o valor exibido como decimal formatado.
+                displayValue.textContent = formatarNumero(parseFloat(valor.replace(',', '.')));
             }
         }
     });
 
-    const metaDiaria = localStorage.getItem("meta_diaria_metaDiaria"); // Obtém a meta diária armazenada no localStorage.
-    const tendencia = localStorage.getItem("meta_diaria_tendencia"); // Obtém a tendência armazenada no localStorage.
-    const diasATrabalhar = localStorage.getItem("meta_diaria_diasATrabalhar"); // Obtém os dias a trabalhar armazenados no localStorage.
+    const metaDiaria = localStorage.getItem("meta_diaria_metaDiaria");
+    const tendencia = localStorage.getItem("meta_diaria_tendencia");
+    const diasATrabalhar = localStorage.getItem("meta_diaria_diasATrabalhar");
 
-    if (metaDiaria !== null) { // Verifica se a meta diária não é nula.
-        document.getElementById("meta-diaria").textContent = formatarNumero(parseFloat(metaDiaria)); // Define o valor da meta diária formatada.
+    if (metaDiaria !== null) {
+        document.getElementById("meta-diaria").textContent = formatarNumero(parseFloat(metaDiaria));
     }
-    if (tendencia !== null) { // Verifica se a tendência não é nula.
-        document.getElementById("tendencia").textContent = tendencia + "%"; // Define o valor da tendência com o símbolo de porcentagem.
+    if (tendencia !== null) {
+        document.getElementById("tendencia").textContent = tendencia + "%";
     }
-    if (diasATrabalhar !== null) { // Verifica se os dias a trabalhar não são nulos.
-        document.getElementById("dias-a-trabalhar").textContent = diasATrabalhar; // Define o valor dos dias a trabalhar.
+    if (diasATrabalhar !== null) {
+        document.getElementById("dias-a-trabalhar").textContent = diasATrabalhar;
     }
 }
 
@@ -148,48 +135,55 @@ function atualizarDataHora() {
     document.getElementById('data-hora').innerText = `${data} ${hora}`;
 }
 
-window.onload = function() {
-    atualizarDataHora(); // Atualiza a data e hora ao carregar a página
-    setInterval(atualizarDataHora, 1000); // Atualiza a cada segundo
-}
-
-// Carrega os resultados armazenados quando a página é carregada
-document.addEventListener("DOMContentLoaded", carregarResultados); // Adiciona um listener para o evento 'DOMContentLoaded' para carregar resultados ao carregar a página.
-
 function desenharMedidor(valorAtual, valorMaximo) {
     const canvas = document.getElementById('metaGauge');
+    if (!canvas || valorMaximo <= 0) return; // Verificação para garantir que o canvas existe e o valor máximo é válido
+    
     const ctx = canvas.getContext('2d');
     const raio = 70; // Raio do arco
-    const centroX = canvas.width / 2; // Coordenada X do centro
-    const centroY = canvas.height; // Coordenada Y do centro (parte inferior do canvas)
+    const centroX = canvas.width / 2;
+    const centroY = canvas.height;
 
-    // Limpar canvas antes de desenhar
+    // Limpar o canvas antes de desenhar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Desenhar o arco de fundo (sem preencher)
+    // Desenho da base do medidor (fundo cinza claro)
     ctx.beginPath();
-    ctx.arc(centroX, centroY, raio, Math.PI, 0, false); // Arco de fundo (metade inferior do círculo)
-    ctx.lineWidth = 15; // Largura da linha do arco
+    ctx.arc(centroX, centroY, raio, Math.PI, 0, false);
+    ctx.lineWidth = 15;
     ctx.strokeStyle = '#e0e0e0'; // Cor de fundo do arco
     ctx.stroke();
 
-    // Calcular o percentual de progresso
-    const porcentagem = valorAtual / valorMaximo;
-    const anguloFinal = Math.PI * (1 - porcentagem); // O ângulo varia de PI (0%) a 0 (100%)
+    // Calcular a porcentagem e o ângulo do progresso
+    const porcentagem = Math.min(valorAtual / valorMaximo, 1);  // Limitar a porcentagem máxima em 1 (100%)
+    const anguloProgresso = Math.PI * (1 - porcentagem); // Ângulo final do progresso
 
-    // Desenhar o arco de progresso
+    // Definir a cor verde para o progresso do medidor
+    const corProgresso = '#76c7c0';
+
+    // Desenho do arco de progresso
     ctx.beginPath();
-    ctx.arc(centroX, centroY, raio, Math.PI, anguloFinal, false); // Arco de progresso
+    ctx.arc(centroX, centroY, raio, Math.PI, anguloProgresso, false);
     ctx.lineWidth = 15;
-    ctx.strokeStyle = '#76c7c0'; // Cor do progresso
+    ctx.strokeStyle = corProgresso;
     ctx.stroke();
 
-    // Adicionar o texto de valor dentro do medidor
+    // Exibição da porcentagem no centro do medidor
     ctx.font = '16px Arial';
-    ctx.fillStyle = '#333';
+    ctx.fillStyle = '#FFFFFF'; // Cor do texto em branco
     ctx.textAlign = 'center';
-    ctx.fillText(`${Math.round(porcentagem * 100)}%`, centroX, centroY - 20); // Texto indicando o percentual
+    ctx.fillText(`${Math.round(porcentagem * 100)}%`, centroX, centroY - 20);
 }
 
-// Exemplo de uso:
-desenharMedidor(75, 100); // Chamando a função com o valor atual de 75 e o máximo de 100
+
+// Carregamento inicial dos resultados e configuração do medidor
+document.addEventListener("DOMContentLoaded", () => {
+    carregarResultados();
+    atualizarDataHora();
+    setInterval(atualizarDataHora, 1000);
+
+    // Chamada inicial para desenhar o medidor com valores carregados
+    const realizado = parseFloat(document.getElementById("realizado").value.replace(',', '.')) || 0;
+    const meta2 = parseFloat(document.getElementById("meta2").value.replace(',', '.')) || 1;  // Evita divisão por zero
+    desenharMedidor(realizado, meta2);
+});
