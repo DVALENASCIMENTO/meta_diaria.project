@@ -63,9 +63,9 @@ function atualizarMetas(realizado, metas) {
     for (let i = 0; i < metas.length; i++) {
         const estrela = document.getElementById(`estrela${i + 1}`);
         if (realizado >= metas[i]) {
-            estrela.style.backgroundColor = "#ff0";
+            estrela.style.backgroundColor = "#ff0"; // Cor da estrela completa
         } else {
-            estrela.style.backgroundColor = "#ccc";
+            estrela.style.backgroundColor = "#ccc"; // Cor da estrela vazia
         }
     }
 }
@@ -137,42 +137,52 @@ function atualizarDataHora() {
 
 function desenharMedidor(valorAtual, valorMaximo) {
     const canvas = document.getElementById('metaGauge');
-    if (!canvas || valorMaximo <= 0) return; // Verificação para garantir que o canvas existe e o valor máximo é válido
-    
+    if (!canvas || valorMaximo <= 0) {
+        console.error("Canvas não encontrado ou valor máximo inválido.");
+        return;
+    }
+
     const ctx = canvas.getContext('2d');
     const raio = 70; // Raio do arco
     const centroX = canvas.width / 2;
-    const centroY = canvas.height;
+    const centroY = canvas.height - 10; // Ajuste a posição central do arco
 
-    // Limpar o canvas antes de desenhar
+    // Limpa o canvas antes de desenhar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Desenho da base do medidor (fundo cinza claro)
+    // Desenha a base do medidor (arco cinza)
     ctx.beginPath();
     ctx.arc(centroX, centroY, raio, Math.PI, 0, false);
     ctx.lineWidth = 15;
     ctx.strokeStyle = '#e0e0e0'; // Cor de fundo do arco
     ctx.stroke();
 
-    // Calcular a porcentagem e o ângulo do progresso
-    const porcentagem = Math.min(valorAtual / valorMaximo, 1);  // Limitar a porcentagem máxima em 1 (100%)
+    // Calcula a porcentagem e o ângulo do progresso
+    const porcentagem = Math.min(valorAtual / valorMaximo, 1); // Garante que a porcentagem máxima seja 100%
     const anguloProgresso = Math.PI * (1 - porcentagem); // Ângulo final do progresso
 
-    // Definir a cor verde para o progresso do medidor
-    const corProgresso = '#76c7c0';
+    // Define a cor do arco de progresso com base na porcentagem
+    let corArco;
+    if (porcentagem < 0.5) {
+        corArco = '#f00'; // Vermelho para menos de 50%
+    } else if (porcentagem < 0.75) {
+        corArco = '#ffcc00'; // Amarelo para entre 50% e 75%
+    } else {
+        corArco = 'green'; // Verde para 75% ou mais
+    }
 
-    // Desenho do arco de progresso
+    // Desenha o arco de progresso
     ctx.beginPath();
     ctx.arc(centroX, centroY, raio, Math.PI, anguloProgresso, false);
     ctx.lineWidth = 15;
-    ctx.strokeStyle = corProgresso;
+    ctx.strokeStyle = corArco; // Cor do arco de progresso
     ctx.stroke();
 
-    // Exibição da porcentagem no centro do medidor
+    // Exibe a porcentagem no centro do medidor
     ctx.font = '16px Arial';
     ctx.fillStyle = '#FFFFFF'; // Cor do texto em branco
     ctx.textAlign = 'center';
-    ctx.fillText(`${Math.round(porcentagem * 100)}%`, centroX, centroY - 20);
+    ctx.fillText(`${Math.round(porcentagem * 100)}%`, centroX, centroY - 25); // Ajuste para centralizar o texto no arco
 }
 
 
@@ -184,6 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Chamada inicial para desenhar o medidor com valores carregados
     const realizado = parseFloat(document.getElementById("realizado").value.replace(',', '.')) || 0;
-    const meta2 = parseFloat(document.getElementById("meta2").value.replace(',', '.')) || 1;  // Evita divisão por zero
+    const meta2 = parseFloat(document.getElementById("meta2").value.replace('.', '').replace(',', '.')) || 1; // Evita divisão por zero
     desenharMedidor(realizado, meta2);
 });
